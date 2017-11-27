@@ -13,7 +13,7 @@ any directory you wish. The program can then be ran through the command ```node 
 # Command Line Interface
 The following commands are available. All commands are case-insensitive, although their arguments are not.
 Commands are separated by newlines. Multiple commands can be inserted at once by inserting newlines into
-the input, and will be processed individually.
+the input, and will be processed individually. The program can be terminated by pressing Ctrl-C.
 
     SET <key> <value>
 
