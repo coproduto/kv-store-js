@@ -116,10 +116,6 @@ describe("Storage transactions", () => {
 
                 const newStorage = transaction.commit();
 
-                console.log('key1', key1, 'value1', value1,
-                            'key2', key2, 'value2', value2);
-
-                console.log(newStorage.sum());
                 if (key1 !== key2) {             
                   return newStorage.sum() === value1 + value2;
                 } else {

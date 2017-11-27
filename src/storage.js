@@ -11,9 +11,9 @@ function KeyValueStorage(parent) {
     this.parent = parent;
     this.values = new Map();
     if(parent) {
-      this.cachedSum = parent.cachedSum;
+        this.cachedSum = parent.cachedSum;
     } else {
-      this.cachedSum = 0;
+        this.cachedSum = 0;
     }
 };
 
@@ -26,16 +26,26 @@ Storage.make = () => {
 // We update the cached sum on value insertion.
 KeyValueStorage.prototype.put = function(key, value) {
     if (value !== null && value !== undefined) {
-	const valueAsInt = parseInt(value);
-	if (valueAsInt && !isNaN(valueAsInt)) {
-	    const oldValueAsInt = parseInt(this.get(key));
-	    if (oldValueAsInt && !isNaN(oldValueAsInt)) {
-		this.cachedSum += valueAsInt - oldValueAsInt;
-	    } else {
-		this.cachedSum += valueAsInt;
-	    }
-	}
-	this.values.set(key, value);
+   	    const valueAsInt = parseInt(value);
+    	  if (!isNaN(valueAsInt)) {
+            this.updateSumCache(key, valueAsInt);
+        }
+        this.values.set(key, value);
+    }
+};
+
+KeyValueStorage.prototype.updateSumCache = function(key, intValue) {
+    const previous = this.get(key);
+    if (previous.hasValue) {
+     	  const oldValueAsInt = parseInt(previous.get());
+      
+  	    if (!isNaN(oldValueAsInt)) {
+	    	    this.cachedSum += intValue - oldValueAsInt;
+	      } else {
+    		    this.cachedSum += intValue;
+	      }
+	  } else {
+      this.cachedSum += intValue;
     }
 };
 
@@ -44,11 +54,11 @@ KeyValueStorage.prototype.put = function(key, value) {
 KeyValueStorage.prototype.get = function(key) {
     const ownValue = Option.fromNullable(this.values.get(key));
     if (ownValue.hasValue) {
-	return ownValue;
+	      return ownValue;
     } else if (this.parent) {
-	return this.parent.get(key);
+	      return this.parent.get(key);
     } else {
-	return Option.none();
+	      return Option.none();
     }
 };
 
@@ -75,7 +85,7 @@ KeyValueStorage.prototype.commit = function() {
 }
 
 // And to roll it back is simply to discard it.
- KeyValueStorage.prototype.rollback = function() {
+KeyValueStorage.prototype.rollback = function() {
     return this.parent;
 }
 
