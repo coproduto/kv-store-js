@@ -1,0 +1,19 @@
+{
+  "name": "kv-store",
+  "version": "0.1.0",
+  "description": "Single-user, single-machine, non-persisted transactional key-value store",
+  "main": "index.js",
+  "scripts": {
+      "build": "babel src -d build",
+      "test": "npm run build && mocha --require babel-core/register"
+  },
+  "author": "Pedro Castilho",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^4.1.2",
+    "jsverify": "^0.8.3",
+    "mocha": "^4.0.1"
+  }
+}
