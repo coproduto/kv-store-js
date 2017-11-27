@@ -29,7 +29,7 @@ Prints the sum of all integer values currently inserted into the key-value store
     BEGIN
 
 Starts a transaction. While the transaction is open, any changes made are temporary
-and can be discarded using ````ROLLBACK``` or made permanent using ```COMMIT```.
+and can be discarded using ```ROLLBACK``` or made permanent using ```COMMIT```.
 
     ROLLBACK
 
