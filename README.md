@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/pcstl/kv-store-js.svg?branch=master)](https://travis-ci.org/pcstl/kv-store-js)
 
 # Usage
+After cloning the repository, run ```npm install``` in order to install dependencies.
+
 In order to run the program, navigate to the root directory and run ```npm start```.
 This will build the program into the ```build``` directory.
 To run the test suites, run ```npm test``` in the root directory.
