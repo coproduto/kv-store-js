@@ -10,7 +10,11 @@ const Storage = { };
 function KeyValueStorage(parent) {
     this.parent = parent;
     this.values = new Map();
-    this.cachedSum = 0;
+    if(parent) {
+      this.cachedSum = parent.cachedSum;
+    } else {
+      this.cachedSum = 0;
+    }
 };
 
 // --- Constructors ---
