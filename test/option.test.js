@@ -1,6 +1,6 @@
 import jsc from 'jsverify';
 import chai from 'chai';
-import Option from '../build/option';
+import Option from '../build/src/option';
 
 const expect = chai.expect;
 
@@ -35,7 +35,7 @@ describe("the option type", () => {
 	    expect(option.hasValue).to.be.false;
 	});
 
-	it("should build a Nonee from undefined", () => {
+	it("should build a None from undefined", () => {
 	    const option = Option.fromNullable(undefined);
 	    expect(option.hasValue).to.be.false;
 	});

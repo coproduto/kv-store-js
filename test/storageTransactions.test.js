@@ -1,6 +1,6 @@
 import jsc from 'jsverify';
 import chai from 'chai';
-import Storage from '../build/storage';
+import Storage from '../build/src/storage';
 
 const expect = chai.expect;
 

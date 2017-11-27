@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/pcstl/kv-store-js.svg?branch=master)](https://travis-ci.org/pcstl/kv-store-js)

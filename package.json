@@ -4,7 +4,7 @@
   "description": "Single-user, single-machine, non-persisted transactional key-value store",
   "main": "index.js",
   "scripts": {
-      "build": "babel src -d build",
+      "build": "babel src -d build/src && babel index.js -o build/index.js",
       "test": "npm run build && mocha --require babel-core/register"
   },
   "author": "Pedro Castilho",

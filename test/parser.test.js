@@ -1,6 +1,6 @@
 import jsc from 'jsverify';
 import chai from 'chai';
-import Parser from '../build/parser';
+import Parser from '../build/src/parser';
 
 const expect = chai.expect;
 
@@ -10,13 +10,13 @@ describe("the command parser", () => {
 	    error: false,
 	    command: {
 		name: Parser.commands.SET.name,
-		args: { key: "foo", value: "bar" }
+		args: { key: 'foo', value: 'bar' }
 	    }
 	}];
 
-	const parserOutput = Parser.parseInput("set foo bar");
+	const parserOutput = Parser.parseInput('set foo bar');
 
-	expect(Parser.parseInput("set foo bar"))
+	expect(Parser.parseInput('set foo bar'))
 	    .to.deep.equal(setCommandObject);
     });
 
