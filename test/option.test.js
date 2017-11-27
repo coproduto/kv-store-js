@@ -35,9 +35,9 @@ describe("the option type", () => {
 	    expect(option.hasValue).to.be.false;
 	});
 
-	it("should build a Some from undefined", () => {
+	it("should build a Nonee from undefined", () => {
 	    const option = Option.fromNullable(undefined);
-	    expect(option.hasValue).to.be.true;
+	    expect(option.hasValue).to.be.false;
 	});
 
 	jsc.property(

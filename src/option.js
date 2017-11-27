@@ -20,7 +20,7 @@ Option.none = () => {
 };
 
 Option.fromNullable = (value) => {
-    if (value === null) {
+    if (value === null || value === undefined) {
 	return Option.none();
     } else {
 	return Option.some(value);
