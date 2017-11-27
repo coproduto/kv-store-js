@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/pcstl/kv-store-js.svg?branch=master)](https://travis-ci.org/pcstl/kv-store-js)
 
 # Usage
+After cloning the repository, run ```npm install``` in order to install dependencies.
+
 In order to run the program, navigate to the root directory and run ```npm start```.
 This will build the program into the ```build``` directory.
 To run the test suites, run ```npm test``` in the root directory.
@@ -11,7 +13,7 @@ any directory you wish. The program can then be ran through the command ```node 
 # Command Line Interface
 The following commands are available. All commands are case-insensitive, although their arguments are not.
 Commands are separated by newlines. Multiple commands can be inserted at once by inserting newlines into
-the input, and will be processed individually.
+the input, and will be processed individually. The program can be terminated by pressing Ctrl-C.
 
     SET <key> <value>
 
