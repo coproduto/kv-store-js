@@ -60,6 +60,7 @@ KeyValueStorage.prototype.openTransaction = function() {
 }
 
 KeyValueStorage.prototype.mergeTransaction = function(transaction) {
+    this.cachedSum = transaction.cachedSum;
     this.values = new Map([...this.values, ...transaction.getValues()]);
 };
 
