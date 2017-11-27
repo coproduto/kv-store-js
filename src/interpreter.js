@@ -47,7 +47,7 @@ Interpreter.prototype.handleCommit = function() {
 	this.transactionCount -= 1;
 	return { output: '' };
     } else {
-	return { output: "BEGIN: There is no open transaction." };
+	return { output: "COMMIT: There is no open transaction." };
     }
 };
 
@@ -63,7 +63,7 @@ Interpreter.prototype.handleRollback = function() {
 
 Interpreter.prototype.handleInput = function(input) {
     const parsedObjects = Parser.parseInput(input);
-    parsedObjects.forEach((object) => {
+    return parsedObjects.map((object) => {
 	if (object.error) {
 	    return { output: object.errorMessage };
 	} else {

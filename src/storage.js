@@ -4,8 +4,10 @@ import Option from './option';
 const Storage = { };
 
 // --- Storage data type implementation ---
-function KeyValueStorage() {
+function KeyValueStorage(parent) {
+    this.parent = parent;
     this.values = new Map();
+    this.cachedSum = 0;
 };
 
 // --- Constructors ---
@@ -16,48 +18,53 @@ Storage.make = () => {
 // --- Methods ---
 KeyValueStorage.prototype.put = function(key, value) {
     if (value !== null && value !== undefined) {
+	const valueAsInt = parseInt(value);
+	if (valueAsInt && !isNaN(valueAsInt)) {
+	    const oldValueAsInt = parseInt(this.get(key));
+	    if (oldValueAsInt && !isNaN(oldValueAsInt)) {
+		this.cachedSum += valueAsInt - oldValueAsInt;
+	    } else {
+		this.cachedSum += valueAsInt;
+	    }
+	}
 	this.values.set(key, value);
     }
 };
 
 KeyValueStorage.prototype.get = function(key) {
-    return Option.fromNullable(this.values.get(key));
+    const ownValue = Option.fromNullable(this.values.get(key));
+    if (ownValue.hasValue) {
+	return ownValue;
+    } else if (this.parent) {
+	return this.parent.get(key);
+    } else {
+	return Option.none();
+    }
+};
+
+KeyValueStorage.prototype.sum = function() {
+    return this.cachedSum;
 };
 
 // --- Transactions ---
 KeyValueStorage.prototype.openTransaction = function() {
-    return new TransactionStorage(this);
+    return new KeyValueStorage(this);
 }
-
-function TransactionStorage(parent) {
-    this.parent = parent;
-    this.values = new Map();
-}
-TransactionStorage.prototype = Object.create(KeyValueStorage.prototype);
 
 KeyValueStorage.prototype.mergeTransaction = function(transaction) {
     this.values = new Map([...this.values, ...transaction.getValues()]);
 };
 
-TransactionStorage.prototype.get = function(key) {
-    const ownValue = Option.fromNullable(this.values.get(key));
-    if (ownValue.hasValue) {
-	return ownValue;
-    } else {
-	return this.parent.get(key);
-    }
-}
-
-TransactionStorage.prototype.commit = function() {
+KeyValueStorage.prototype.commit = function() {
     this.parent.mergeTransaction(this);
     return this.parent;
 }
 
-TransactionStorage.prototype.rollback = function() {
+ KeyValueStorage.prototype.rollback = function() {
     return this.parent;
 }
 
-TransactionStorage.prototype.getValues = function() {
+KeyValueStorage.prototype.getValues = function() {
     return this.values;
 }
 

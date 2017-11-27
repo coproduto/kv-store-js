@@ -7,36 +7,24 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-const handleOpenTransactions = () => {
-    if (interpreter.transactionCount > 0) {
-	do {
-	    process.stdout.write(
-		'There are open transactions. Do you really wish to exit? (y/n) '
-	    );
-	    let input = readline().trim().toUpperCase();
-	    if (input !== 'Y' && input !== 'N') {
-		console.log('Please enter y or n.');
+// Shows a prompt and waits for user input.
+// The actual processing is done by the interpreter (src/interpreter.js)
+const startCLI = () => {
+    rl.setPrompt('$> ');
+    rl.prompt();
+    rl.on('line', (line) => {
+	const results = interpreter.handleInput(line);
+	results.forEach((result) => {
+	    if (result.output) {
+		console.log(result.output);
 	    }
-	} while (input !== 'Y' && input !== 'N')
-
-	if (input === 'Y') {
-	    process.exit();
-	}
-    }
+	});
+	rl.prompt();
+    });
 };
 
-process.on('SIGINT', handleOpenTransactions);
+startCLI();
 
-rl.setPrompt('$> ');
-rl.prompt();
-rl.on('line', (line) => {
-    let result = interpreter.handleInput(line);
-    console.log(result);
-    if (result.output) {
-	console.log(result.output);
-    }
-    rl.prompt();
-}).on('close', handleOpenTransactions);
 
 
 

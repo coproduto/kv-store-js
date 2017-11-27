@@ -48,7 +48,7 @@ describe("the command interpreter", () => {
 
 	const interpreter = Interpreter.start();
 	interpreter.handleSet(setCommandObject);
-	expect(interpreter.handleSum(sumCommandObject).ouput)
+	expect(interpreter.handleSum(sumCommandObject).output)
 	    .to.equal('> 10');
     });
 });
