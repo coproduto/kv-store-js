@@ -1,3 +1,5 @@
+// A simple option data type used to simplify key-value queries.
+
 // --- Base data type ---
 function Option() { };
 
@@ -19,6 +21,10 @@ Option.none = () => {
     return new None();
 };
 
+// we require fromNullable to return Option.some on undefined
+// because JavaScript Maps will return undefined on missing keys.
+// This way, we can wrap queries on maps with Option.fromNullable
+// in order to get better safety.
 Option.fromNullable = (value) => {
     if (value === null || value === undefined) {
 	return Option.none();

@@ -1,14 +1,30 @@
 import Parser from './parser';
 import Storage from './storage';
 
+// --- Instantiation ---
+// The constructor function should not be used directly.
+// Use Interpreter.start instead.
 function Interpreter() {
     this.storage = Storage.make();
     this.transactionCount = 0;
 };
 
+// Creates a new interpreter.
 Interpreter.start = () => {
     return new Interpreter();
 }
+
+// --Command handling --
+// All of the handlers delegate to the storage module (src/storage.js).
+// The data they receive comes from the command parser (src/parser.js).
+
+// Every command object has an "error" field of Boolean value.
+// If the "error" field is set to true, the object has an "errorMessage"
+// of String value. Otherwise, it has a "command" field whose value
+// is an object with fields "name" and "args" (the latter only if
+// the command takes arguments).
+
+// The format for each command is specified in the command parser's file.
 
 Interpreter.prototype.handleSet = function(setObject) {
     this.storage.put(
@@ -31,10 +47,11 @@ Interpreter.prototype.handleGet = function(getObject) {
 
 Interpreter.prototype.handleSum = function() {
     const result = this.storage.sum();
-
     return { output: `> ${result}` };
 };
 
+// The following two handlers use `transactionCount`
+// in order to determine whether the user is in a transaction.
 Interpreter.prototype.handleBegin = function() {
     this.storage = this.storage.openTransaction();
     this.transactionCount += 1;
@@ -47,7 +64,7 @@ Interpreter.prototype.handleCommit = function() {
 	this.transactionCount -= 1;
 	return { output: '' };
     } else {
-	return { output: "COMMIT: There is no open transaction." };
+	return { output: "COMMIT: Not in a transaction." };
     }
 };
 
@@ -57,7 +74,7 @@ Interpreter.prototype.handleRollback = function() {
 	this.transactionCount -= 1;
 	return { output: '' };
     } else {
-	return { output: "ROLLBACK: There is no open transaction." };
+	return { output: "ROLLBACK: Not in a transaction." };
     }
 };
 
