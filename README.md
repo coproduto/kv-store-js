@@ -15,12 +15,12 @@ the input, and will be processed individually.
 
     SET <key> <value>
 
-Sets <key> to <value>. <key> and <value> must not contain any whitespace and <key> is case-sensitive.
+Sets &lt;key&gt; to &lt;value&gt;. &lt;key&gt; and &lt;value&gt; must not contain any whitespace and &lt;key&gt; is case-sensitive.
 
     GET <key>
 
-Prints the value previously attributed to <key>, or prints NULL in case there is none.
-<key> must not contain any whitespace. <key> is case-sensitive.
+Prints the value previously attributed to &lt;key&gt;, or prints NULL in case there is none.
+&lt;key&gt; must not contain any whitespace. &lt;key&gt; is case-sensitive.
 
     SUM
 
